@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   List,
   ListItem,
@@ -34,7 +35,7 @@ export default function MarksList({
   onMarkDelete,
 }: MarksListProps) {
   const { contextMenu, handleContextMenu, handleClose } = useContextMenu();
-  const [selectedMark, setSelectedMark] = React.useState<TimeMark | null>(null);
+  const [selectedMark, setSelectedMark] = useState<TimeMark | null>(null);
 
   const handleMarkContextMenu = (
     e: React.MouseEvent | React.TouchEvent,

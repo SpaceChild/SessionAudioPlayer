@@ -2,7 +2,7 @@
 FROM node:20-alpine AS frontend-build
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm install
 COPY frontend/ ./
 RUN npm run build
 
@@ -10,27 +10,32 @@ RUN npm run build
 FROM node:20-alpine AS backend-build
 WORKDIR /app/backend
 COPY backend/package*.json ./
-RUN npm ci
+RUN npm install
 COPY backend/ ./
 RUN npm run build
+# Copy SQL schema files to dist
+RUN mkdir -p dist/db && cp src/db/*.sql dist/db/
 
 # Stage 3: Production
 FROM node:20-alpine
 WORKDIR /app
 
 # Install production dependencies
-COPY backend/package*.json ./
-RUN npm ci --only=production
+COPY --chown=node:node backend/package*.json ./
+RUN npm install --omit=dev
 
-# Copy built files
-COPY --from=backend-build /app/backend/dist ./dist
-COPY --from=frontend-build /app/frontend/dist ./public
+# Copy built files with correct ownership
+COPY --chown=node:node --from=backend-build /app/backend/dist ./dist
+COPY --chown=node:node --from=frontend-build /app/frontend/dist ./public
 
 # Create data directory
-RUN mkdir -p /app/data
+RUN mkdir -p /app/data && chown node:node /app/data
 
 # Expose port
 EXPOSE 3000
+
+# Run as node user
+USER node
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

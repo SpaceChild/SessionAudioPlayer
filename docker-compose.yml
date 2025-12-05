@@ -7,7 +7,6 @@ services:
       dockerfile: docker/Dockerfile
     container_name: sessionaudio
     restart: unless-stopped
-    user: "33:33"  # www-data (same as Nextcloud)
     volumes:
       # Audio files from Nextcloud (read-only)
       - /home/timbo/nextcloud/data/nextcloud/data/timbo/files/SessionAudio:/audio:ro
