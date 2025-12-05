@@ -1,3 +1,12 @@
+# Technology Choices
+- React + Vite
+- Material-UI (MUI)
+- Node.js + Express + TypeScript
+- SQLite with better-sqlite3 package
+- Session-based + Rate Limiting
+- Single Container (Frontend + Backend)
+
+# Questions Section
 Answer 1:
 I post the password separately
 
