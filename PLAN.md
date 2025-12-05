@@ -1,0 +1,5 @@
+- i want to implement a web app with the requirements written in the REQUIREMENTS.md file
+- create a structured implementation plan with every detail in a new file TODOS.md
+- structure everything that belongs together in a separate step
+- later, when the plan is complete with every detail, I want to implement the web app only using the TODOS.md file
+- if decisions are to be made, ask me and always show advantages and disadvantages of the choices (technically or interface)
