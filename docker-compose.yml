@@ -14,8 +14,8 @@ services:
       - ./data:/app/data
     environment:
       - NODE_ENV=production
-      - PASSWORD_HASH=${PASSWORD_HASH}
-      - SESSION_SECRET=${SESSION_SECRET}
+      - PASSWORD_HASH=$$2b$$12$$QFwRxvI/CN8Wbcv0ride1uAtJNT0PWjGRKQdRpCZEByp6W1Y87xre
+      - SESSION_SECRET=2ab6584b94581e1d06b6a928d8e45f919b00020528627d699d762a31e8dc8179
       - AUDIO_PATH=/audio
       - DB_PATH=/app/data/sessionaudio.db
       - PORT=3000
