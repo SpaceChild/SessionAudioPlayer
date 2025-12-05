@@ -20,3 +20,21 @@ yarn-error.log*
 
 # Dependencies
 node_modules/
+
+# Environment variables (contains secrets)
+.env
+.env.local
+.env.*.local
+
+# Build output
+app/frontend/dist/
+app/backend/dist/
+
+# Database
+data/*.db
+data/*.db-journal
+data/*.db-shm
+data/*.db-wal
+
+# Docker volumes
+data/

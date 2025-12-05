@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  sessionaudio:
+    build:
+      context: ./app
+      dockerfile: docker/Dockerfile
+    container_name: sessionaudio
+    restart: unless-stopped
+    user: "33:33"  # www-data (same as Nextcloud)
+    volumes:
+      # Audio files from Nextcloud (read-only)
+      - /home/timbo/nextcloud/data/nextcloud/data/timbo/files/SessionAudio:/audio:ro
+      # Database and persistent data
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PASSWORD_HASH=${PASSWORD_HASH}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - AUDIO_PATH=/audio
+      - DB_PATH=/app/data/sessionaudio.db
+      - PORT=3000
+    networks:
+      - caddy-network
+
+networks:
+  caddy-network:
+    external: true
+    name: caddy-network
