@@ -8,12 +8,19 @@ declare module 'express-session' {
 
 /**
  * Authentication middleware - protects routes
+ * In development mode, authentication is bypassed
  */
 export function requireAuth(
   req: Request,
   res: Response,
   next: NextFunction
 ): void {
+  // Bypass authentication in development mode
+  if (process.env.NODE_ENV === 'development') {
+    next();
+    return;
+  }
+
   if (req.session.authenticated) {
     next();
   } else {

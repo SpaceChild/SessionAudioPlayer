@@ -12,6 +12,7 @@ export function useAuth() {
   const checkAuth = async () => {
     try {
       const status = await authApi.getStatus();
+      console.log('[useAuth] Auth status received:', status);
       setAuthStatus(status);
     } catch (error) {
       console.error('Error checking auth status:', error);

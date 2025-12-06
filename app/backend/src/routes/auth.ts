@@ -75,8 +75,13 @@ router.post('/logout', (req: Request, res: Response) => {
  * Check authentication status
  */
 router.get('/status', (req: Request, res: Response) => {
+  // In development mode, always return authenticated
+  const isAuthenticated = process.env.NODE_ENV === 'development'
+    ? true
+    : (req.session.authenticated || false);
+
   res.json({
-    authenticated: req.session.authenticated || false,
+    authenticated: isAuthenticated,
     locked: isSystemLocked(),
   });
 });
